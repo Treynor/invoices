@@ -1,0 +1,46 @@
+{% extends 'base/templates/main.html' %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            <li><b>Record Number</b> - {{ invoice_detail.id }} </li>
+            <li><b>Supplier</b> - {{ invoice_detail.supplier }} </li>
+            <li><b>Invoice Number</b> - {{ invoice_detail.invoiceNumber }} </li>
+            <li><b>Reported To</b> - {{ invoice_detail.reportedTo }} </li>
+            <li><b>Solved</b> - {{ invoice_detail.solved }} </li>
+            <p>
+        </div>
+        <div class="col-sm">
+
+            <form method="POST" action=" {% url 'update' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="supplier" aria-describedby="supplier" placeholder="Supplier">
+                    <input type="text" class="form-control" name="invoiceNumber" aria-describedby="invoiceNumber" placeholder="Invoice Number">
+                    <input type="text" class="form-control" name="reason" aria-describedby="reason" placeholder="Reason">
+                    <input type="text" class="form-control" name="reportedTo" aria-describedby="reportedTo" placeholder="Reported To">
+                    <input type="text" class="form-control" name="solved" aria-describedby="solved" placeholder="Solved">
+                </div>
+                {% if form.errors %}
+                {% for field in form %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+                </div>
+                {% endfor %}
+                {% endfor %}
+                {% endif %}
+
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>   
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
